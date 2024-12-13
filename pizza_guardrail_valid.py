@@ -7,7 +7,7 @@ from typing import Dict, Any
 class PizzaGuardrail:
     def __init__(self, bedrock_client):
         self.bedrock_client = bedrock_client
-        self.guardrail_id = "b09i3s9v4evb"
+        self.guardrail_id = "GUARDRAIL_ID"
         self.guardrail_version = "DRAFT"
         self.required_fields = ['modelInput', 'metadata', 'recordId']
         self.email_pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
@@ -72,7 +72,7 @@ class PizzaGuardrail:
 
 def main():
     # Initialize AWS session and client
-    session = boto3.Session(profile_name=os.getenv('AWS_PROFILE', 'stuartck-admin'))
+    session = boto3.Session(profile_name=os.getenv('AWS_PROFILE', ''))
     bedrock_runtime = session.client('bedrock-runtime')
 
     # Test input data
