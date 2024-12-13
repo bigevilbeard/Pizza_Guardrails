@@ -92,7 +92,7 @@ def create_pii_guardrail(bedrock_client, name, description):
 
 def main():
     # Initialize the Bedrock client with your specific profile
-    bedrock = boto3.Session(profile_name='stuartck-admin')
+    bedrock = boto3.Session(profile_name='ADD_USER_NAME')
     
     # Create the bedrock client (not bedrock-runtime)
     bedrock_client = bedrock.client(service_name='bedrock')
