@@ -1,15 +1,14 @@
-# %%
 import json
 import os
 import boto3
 import re
 from typing import Dict, Any
 
-# %%
+
 class PizzaGuardrail:
     def __init__(self, bedrock_client):
         self.bedrock_client = bedrock_client
-        self.guardrail_id = "xqi03i9k4oev"
+        self.guardrail_id = "ADD_GUARDRAIL_ID"
         self.guardrail_version = "DRAFT"
         self.required_fields = ['modelInput', 'metadata', 'recordId']
         self.email_pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
@@ -77,15 +76,15 @@ class PizzaGuardrail:
             return None
 
 
-# %%
+
 def main():
     # Initialize AWS session and clients
-    session = boto3.Session(profile_name=os.getenv('AWS_PROFILE', 'stuartck-admin'))
+    session = boto3.Session(profile_name=os.getenv('AWS_PROFILE', 'ADD_USER_NAME'))
     bedrock_runtime = session.client('bedrock-runtime')
     s3_client = session.client('s3')
 
     # S3 bucket and key information
-    bucket_name = 'pizzacustomers'
+    bucket_name = 'ADD_BUCKET_NAME'
     file_key = 'pizza_batch_input_ten.jsonl'
 
     try:
