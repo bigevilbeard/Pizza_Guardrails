@@ -17,22 +17,28 @@ class PizzaGuardrail:
 
     def apply_guardrail(self, input_data: Dict[str, Any]):
         try:
-            # Format the content as a dictionary within a list
-            prompt_content = input_data['modelInput']['prompt']
+            # Format the content as a list of dictionaries: the prompt, then
+            # each customer contact field, which is where the personal data is
+            texts = [input_data['modelInput']['prompt']]
+            contact = input_data.get('metadata', {}).get('contact', {})
+            texts += [str(value) for value in contact.values() if value]
             
-            content_dict = {
-                "text": {
-                    "text": prompt_content,
-                    "qualifiers": ["guard_content"]  # Using valid qualifier from the enum set
+            content = [
+                {
+                    "text": {
+                        "text": text,
+                        "qualifiers": ["guard_content"]  # Using valid qualifier from the enum set
+                    }
                 }
-            }
+                for text in texts
+            ]
             
             # Apply the guardrail with content as a list of dictionaries
             response = self.bedrock_client.apply_guardrail(
                 guardrailIdentifier=self.guardrail_id,
                 guardrailVersion=self.guardrail_version,
                 source="INPUT",  # Using valid enum value
-                content=[content_dict]
+                content=content
             )
             
             return response
